@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="fonts/ionicons.min.css">
+    <link rel="stylesheet" href="css/Header-Blue-1.css">
+    <link rel="stylesheet" href="css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="css/Navigation-Clean.css">
+    <title>Registro</title>
+    <script>
+        let pst, frm;
+        window.onload = function(){    //onload garantiza que todos los elementos se hayan cargado para ejecutar el codigo de javascript
+
+            frm = document.getElementById("form-validate");  //Obtenemos el formulario por su id
+            pst = new Pristine(frm);  //Instanciamos la clase pristine pasandole el formulario a validar
+
+            frm.addEventListener("submit", function (e) {   //Este formulario cuando se haga un submit ejecutara este codigo
+                e.preventDefault();  //Evita que se envie por defecto para validar
+                if(pst.validate()){
+                    procesarDatos();
+                }
+                else{
+                    frm.classList.add("was-validated");
+                }
+                //console.log("test"); testeamos que funcione en consola
+                //var valid = pst.validate();  el metodo retorna true o false
+            });
+            frm.addEventListener("reset", function (e) {
+                frm.classList.remove("was-validated");
+            });
+
+            function procesarDatos(){
+                fetch("script.php", {method: "POST",  //fetch hace una peticion al servidor, con formdata usamos los campos del formulario
+                body:new FormData(frm)
+                }).then(function(response){
+                    return response.json();  //retornamos el json obtenido
+                }).then(function(json){
+                    guardarLocalmente(json);  //pasamos el json generado por el script 
+                }).catch(function(err){
+
+                })
+            }
+            
+            function guardarLocalmente(json){
+                localStorage.setItem("usuario", JSON.stringify(json));
+                location.href = "index.html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-dark">
+        <form id="form-validate" novalidate method="POST" class="container">
+            <h1 class="text-center" style="padding: 0px 0px 25px 0px;">Registro</h1>
+            <div class="form-group"><input class="form-control" type="text" name="nombre" placeholder="Nombre"></div>
+            <div class="form-group"><input class="form-control" type="email" name="usuario" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Contraseña"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Registrarse</button></div>
+        </form>
+        <h1 class="text-center" style="color: #f7f9fc;font-family: Lato, sans-serif;text-align: center;padding: 45px 0px 0px 0px;">Galerix</h1>
+    </div>
+    <script src="js/vendor/pristine.min.js"></script>
+</body>
+</html>

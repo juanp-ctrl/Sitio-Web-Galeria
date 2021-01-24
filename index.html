@@ -3,64 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title>Galeria</title>
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <title>Galerix</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
+    <link rel="stylesheet" href="fonts/ionicons.min.css">
+    <link rel="stylesheet" href="css/Header-Blue-1.css">
+    <link rel="stylesheet" href="css/Login-Form-Dark.css">
+    <link rel="stylesheet" href="css/Navigation-Clean.css">
     <script>
-        let pst, frm;
-        window.onload = function(){    //onload garantiza que todos los elementos se hayan cargado para ejecutar el codigo de javascript
+        let frm, pst;
 
-            frm = document.getElementById("form-validate");  //Obtenemos el formulario por su id
-            pst = new Pristine(frm);  //Instanciamos la clase pristine pasandole el formulario a validar
+        window.onload = ()=>{
+            frm = document.getElementById("form-login");
+            pst = new Pristine(frm);
 
-            frm.addEventListener("submit", function (e) {   //Este formulario cuando se haga un submit ejecutara este codigo
-                e.preventDefault();  //Evita que se envie por defecto para validar
+            frm.addEventListener("submit", function(e){
+                e.preventDefault();
                 if(pst.validate()){
                     procesarDatos();
                 }
                 else{
-                    frm.classList.add("was-validated");
+                    frm.classList.add("was-validated");  //añade el estilo de validacion 
                 }
-                //console.log("test"); testeamos que funcione en consola
-                //var valid = pst.validate();  el metodo retorna true o false
             });
-            frm.addEventListener("reset", function (e) {
-                frm.classList.remove("was-validated");
-            });
+        }
 
-            function procesarDatos(){
-                fetch("script.php", {method: "POST",  //fetch hace una peticion al servidor, con formdata usamos los campos del formulario
+        function procesarDatos(){
+            let usuario = localStorage.getItem("usuario");  //obtenemos el item guardado en localstorage 
+            if(usuario){
+                fetch("script.php", {method: "POST", 
                 body:new FormData(frm)
                 }).then(function(response){
-                    return response.json();  //retornamos el json obtenido
+                    return response.json();  
                 }).then(function(json){
-                    guardarLocalmente(json);  //pasamos el json generado por el script 
+                    validarLogin(json);
                 }).catch(function(err){
 
                 })
             }
-            
-            function guardarLocalmente(json){
-                localStorage.setItem("usuario", JSON.stringify(json));
-                location.href = "login.html";
+        }
+
+        function validarLogin(json){
+
+            let usuario = JSON.parse(localStorage.getItem("usuario"));
+
+            if(usuario.password == json.password){
+                location.href = "home.html";
+            }
+            else{
+                alert("Usuario y/o Contraseña incorrecta");
             }
         }
     </script>
 </head>
 <body>
-    <form id="form-validate" novalidate method="POST" class="container">  <!--no vadilate es para que no haga la validacion de html-->
-        <div class="form-group">
-            <p>Nombre</p>
-            <input type="text" class="form-control" name="usuario" required>
-        </div>
-        <div class="form-group">
-            <p>Contraseña</p>
-            <input type="password" class="form-control" name="password" required>
-        </div>
-        <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="Entrar">
-            <input type="reset" class="btn btn-primary" value="Reset">
-        </div>
-    </form>
+    <div class="login-dark">
+        <form id="form-login" novalidate method="POST">
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group"><input class="form-control" type="email" name="usuario" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit" style="margin-bottom: 15px;">Iniciar Sesión</button></div><a class="forgot" href="#">¿Has olvidado tu contraseña? click aquí</a><button class="btn btn-primary btn-block" type="text"><a href="registro.html" style="color: rgb(255,255,235); text-decoration: none;">Registrarse</a></button>
+        </form>
+        <h1 class="text-center" style="color: #f7f9fc;font-family: Lato, sans-serif;text-align: center;padding: 25px 0px 0px 0px;">Galerix</h1>
+        <p style="color: rgb(194,202,210);text-align: center;font-family: Montserrat, sans-serif;padding: 55px 0px 0px 0px;">Toda tu galería en un solo lugar</p>
+        <p style="color: rgb(194,202,210);text-align: center;font-family: Montserrat, sans-serif;padding: 0px;">Inicia Sesión para ingresar a la galería o Regístrate</p>
+    </div>
     <script src="js/vendor/pristine.min.js"></script>
 </body>
 </html>
