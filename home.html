@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <title>Home</title>
+    
+</head>
+<body>
+    <h1>Galerix</h1>
+    <div class="form-group"><input type="file" id="ArchivoCargado"></div>
+    <img src="" id="imagen-subida" alt="Imagen1" style="width: 25%; height: 25%;">
+    <img src="" id="imagen-subida2" alt="Imagen2" style="width: 25%; height: 25%;">
+    <img src="" id="imagen-subida3" alt="Imagen3" style="width: 25%; height: 25%;">
+
+    <script>
+        var numero = 0;
+        var numerofinal;
+
+        document.querySelector("#ArchivoCargado").addEventListener("change", function() {  //Cuando el usuario cambie el valor del input ejecutamos esta funcion
+            const lector = new FileReader();
+
+            lector.addEventListener("load", () => {
+                localStorage.setItem(numero, lector.result);  //Guardamos la dataURL en el localstorage
+                numero++;
+                numerofinal = numero;
+                loaded();
+                localStorage.setItem("Numero", numerofinal);
+            });
+
+            lector.readAsDataURL(this.files[0]);   //Convertimos en dataURL la imagen cargada 
+        });
+
+        function loaded(){
+            for (var i=0; i<numerofinal; i++){
+                const recentImageDataUrl = localStorage.getItem(i);    
+
+                if(i==0) {
+                    document.querySelector("#imagen-subida").setAttribute("src", recentImageDataUrl);    
+                }
+                else if(i==1) {
+                    document.querySelector("#imagen-subida2").setAttribute("src", recentImageDataUrl);    
+                }
+                else if(i==2) {
+                    document.querySelector("#imagen-subida3").setAttribute("src", recentImageDataUrl);    
+                }
+                console.log(i);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina cargue ejecutamos esta funcion 
+            var numeron = localStorage.getItem("Numero");
+            for (var i=0; i<numeron; i++){
+                const recentImageDataUrl = localStorage.getItem(i);    //Cargamos la imagen guardada en el localstorage
+
+                if(i==0) {
+                    document.querySelector("#imagen-subida").setAttribute("src", recentImageDataUrl);    //Si la imagen existe le pasamos la informacion al atributo src de la imagen
+                }
+                else if(i==1) {
+                    document.querySelector("#imagen-subida2").setAttribute("src", recentImageDataUrl);    
+                }
+                else if(i==2) {
+                    document.querySelector("#imagen-subida3").setAttribute("src", recentImageDataUrl);    
+                }
+            }
+        });
+    </script>
+</body>
+</html>
