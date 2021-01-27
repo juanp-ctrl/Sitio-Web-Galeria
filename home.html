@@ -10,9 +10,7 @@
 <body>
     <h1>Galerix</h1>
     <div class="form-group"><input type="file" id="ArchivoCargado"></div>
-    <img src="" id="imagen-subida" alt="Imagen1" style="width: 25%; height: 25%;">
-    <img src="" id="imagen-subida2" alt="Imagen2" style="width: 25%; height: 25%;">
-    <img src="" id="imagen-subida3" alt="Imagen3" style="width: 25%; height: 25%;">
+    <div id="default"></div>
 
     <script>
         var numero = 0;
@@ -34,18 +32,14 @@
 
         function loaded(){
             for (var i=0; i<numerofinal; i++){
+
                 const recentImageDataUrl = localStorage.getItem(i);    
 
-                if(i==0) {
-                    document.querySelector("#imagen-subida").setAttribute("src", recentImageDataUrl);    
-                }
-                else if(i==1) {
-                    document.querySelector("#imagen-subida2").setAttribute("src", recentImageDataUrl);    
-                }
-                else if(i==2) {
-                    document.querySelector("#imagen-subida3").setAttribute("src", recentImageDataUrl);    
-                }
-                console.log(i);
+                var imagen = document.createElement("img");
+                imagen.setAttribute("src", recentImageDataUrl);
+                var divi = document.getElementById("default");
+                document.body.insertBefore(imagen, divi);
+
             }
         }
 
@@ -54,15 +48,10 @@
             for (var i=0; i<numeron; i++){
                 const recentImageDataUrl = localStorage.getItem(i);    //Cargamos la imagen guardada en el localstorage
 
-                if(i==0) {
-                    document.querySelector("#imagen-subida").setAttribute("src", recentImageDataUrl);    //Si la imagen existe le pasamos la informacion al atributo src de la imagen
-                }
-                else if(i==1) {
-                    document.querySelector("#imagen-subida2").setAttribute("src", recentImageDataUrl);    
-                }
-                else if(i==2) {
-                    document.querySelector("#imagen-subida3").setAttribute("src", recentImageDataUrl);    
-                }
+                var imagen = document.createElement("img");
+                imagen.setAttribute("src", recentImageDataUrl);
+                var divi = document.getElementById("default");
+                document.body.insertBefore(imagen, divi);
             }
         });
     </script>
