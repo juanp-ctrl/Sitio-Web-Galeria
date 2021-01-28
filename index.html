@@ -9,51 +9,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic">
     <link rel="stylesheet" href="fonts/ionicons.min.css">
     <link rel="stylesheet" href="css/Login-Form-Dark.css">
-    <script>
-        let frm, pst;
-
-        window.onload = ()=>{
-            frm = document.getElementById("form-login");
-            pst = new Pristine(frm);
-
-            frm.addEventListener("submit", function(e){
-                e.preventDefault();
-                if(pst.validate()){
-                    procesarDatos();
-                }
-                else{
-                    frm.classList.add("was-validated");  //añade el estilo de validacion 
-                }
-            });
-        }
-
-        function procesarDatos(){
-            let usuario = localStorage.getItem("usuario");  //obtenemos el item guardado en localstorage 
-            if(usuario){
-                fetch("script.php", {method: "POST", 
-                body:new FormData(frm)
-                }).then(function(response){
-                    return response.json();  
-                }).then(function(json){
-                    validarLogin(json);
-                }).catch(function(err){
-
-                })
-            }
-        }
-
-        function validarLogin(json){
-
-            let usuario = JSON.parse(localStorage.getItem("usuario"));
-
-            if(usuario.password == json.password){
-                location.href = "home.html";
-            }
-            else{
-                alert("Usuario y/o Contraseña incorrecta");
-            }
-        }
-    </script>
 </head>
 <body style="height: 100%;">
     <div class="login-dark" style="height: 100%;">
@@ -67,6 +22,7 @@
         <p style="color: rgb(194,202,210);text-align: center;font-family: Montserrat, sans-serif;padding: 55px 0px 0px 0px;">Toda tu galería en un solo lugar</p>
         <p style="color: rgb(194,202,210);text-align: center;font-family: Montserrat, sans-serif;padding: 0px;">Inicia Sesión para ingresar a la galería o Regístrate</p>
     </div>
+    <script src="js/inicio.js"></script>
     <script src="js/vendor/pristine.min.js"></script>
 </body>
 </html>
