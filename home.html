@@ -1,16 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
     <title>Home</title>
-    
+    <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alata">
+    <link rel="stylesheet" href="css/Lightbox-Gallery.css">
+    <link rel="stylesheet" href="css/Navigation-Clean.css">
+
 </head>
-<body>
-    <h1>Galerix</h1>
-    <div class="form-group"><input type="file" id="ArchivoCargado"></div>
-    <div id="default"></div>
+<body style="background: url(img/star-sky.jpg); text-align: center;">
+    <nav class="navbar navbar-light navbar-expand-md navigation-clean" style="background: rgba(92,139,190,0.63);color: #ffffff;">
+        <div class="container"><a class="navbar-brand" href="home.html">Galerix</a>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav ml-auto" style="margin-left: auto;">
+                    <li class="nav-item"><a class="nav-link" href="home.html" style="color: #ffffff;">Galeria</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acercade.html" style="color: #ffffff;">Acerca De</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html" style="color: #ffffff;">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <p style="color: rgb(255,255,255);font-size: 18px;padding: 25px 0px 0px 0px;font-family: Alata, sans-serif;">Agregar nueva imagen</p>
+    <input type="file" id="ArchivoCargado" style="color: rgb(178,185,193);margin: 0px;padding: 25px 0px 0px 0px;">
+    <div class="photo-gallery" style="background: rgba(255,255,255,0);">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center" style="color: rgb(255,255,255);font-family: Alata, sans-serif;">Tu Galeria</h2>
+            </div>
+            <div class="row photos" id="insertar">
+            </div>
+        </div>
+    </div>
 
     <script>
         var numero = 0;
@@ -31,27 +54,50 @@
         });
 
         function loaded(){
+
+            var recentImageDataUrl;
+            
             for (var i=0; i<numerofinal; i++){
 
-                const recentImageDataUrl = localStorage.getItem(i);    
+                recentImageDataUrl = localStorage.getItem(i);
+
+            }
+            console.log(recentImageDataUrl);
+                
+                var divisor = document.createElement("div");
+                divisor.setAttribute("class", "col-sm-6 col-md-4 col-lg-3 item");
 
                 var imagen = document.createElement("img");
                 imagen.setAttribute("src", recentImageDataUrl);
-                var divi = document.getElementById("default");
-                document.body.insertBefore(imagen, divi);
+                imagen.setAttribute("class", "img-fluid");
 
-            }
+                divisor.appendChild(imagen);
+
+                var galeria = document.getElementById("insertar");
+                galeria.appendChild(divisor);
+
         }
 
         document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina cargue ejecutamos esta funcion 
+
             var numeron = localStorage.getItem("Numero");
+
             for (var i=0; i<numeron; i++){
+
                 const recentImageDataUrl = localStorage.getItem(i);    //Cargamos la imagen guardada en el localstorage
+
+                var divisor = document.createElement("div");
+                divisor.setAttribute("class", "col-sm-6 col-md-4 col-lg-3 item");
 
                 var imagen = document.createElement("img");
                 imagen.setAttribute("src", recentImageDataUrl);
-                var divi = document.getElementById("default");
-                document.body.insertBefore(imagen, divi);
+                imagen.setAttribute("class", "img-fluid");
+
+                divisor.appendChild(imagen);
+
+                var galeria = document.getElementById("insertar");
+                galeria.appendChild(divisor);
+
             }
         });
     </script>
