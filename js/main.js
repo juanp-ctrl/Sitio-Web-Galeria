@@ -1,15 +1,28 @@
 var numero = 0;
-var numerofinal;
+
 
 document.querySelector("#ArchivoCargado").addEventListener("change", function() {  //Cuando el usuario cambie el valor del input ejecutamos esta funcion
     const lector = new FileReader();
 
     lector.addEventListener("load", () => {
-        localStorage.setItem(numero, lector.result);  //Guardamos la dataURL en el localstorage
-        numero++;
-        numerofinal = numero;
+
+        if(localStorage.getItem("Numero") == null){
+
+            localStorage.setItem(numero, lector.result);  //Guardamos la dataURL en el localstorage
+            numero++;
+            localStorage.setItem("Numero", numero);
+
+        }
+        else if(localStorage.getItem("Numero") != null){
+
+            numero = localStorage.getItem("Numero");
+            localStorage.setItem(numero, lector.result);
+            numero ++;
+            localStorage.setItem("Numero", numero);
+        }
+        
         loaded();
-        localStorage.setItem("Numero", numerofinal);
+
     });
 
     lector.readAsDataURL(this.files[0]);   //Convertimos en dataURL la imagen cargada 
@@ -18,13 +31,13 @@ document.querySelector("#ArchivoCargado").addEventListener("change", function() 
 function loaded(){
 
     var recentImageDataUrl;
+    var i;
     
-    for (var i=0; i<numerofinal; i++){
+    for (i=0; i<numero; i++){
 
         recentImageDataUrl = localStorage.getItem(i);
 
     }
-    console.log(recentImageDataUrl);
         
         var divisor = document.createElement("div");
         divisor.setAttribute("class", "col-sm-6 col-md-4 col-lg-3 item");
@@ -35,10 +48,20 @@ function loaded(){
 
         divisor.appendChild(imagen);
 
+        var boton = document.createElement("input");
+        boton.setAttribute("type", "button");
+        boton.setAttribute("id", --i);
+        boton.setAttribute("class", "btn btn-primary eli"+i.toString());
+        boton.setAttribute("value", "Eliminar");
+        boton.setAttribute("style", "margin-top: 5px; background-color: #f44336ad; border-color: #ffffff00;");
+        boton.setAttribute("onclick", "eliminar(" + boton.getAttribute("id") + ")");
+
+        divisor.appendChild(boton);
+
         var galeria = document.getElementById("insertar");
         galeria.appendChild(divisor);
 
-}
+};
 
 document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina cargue ejecutamos esta funcion 
 
@@ -57,8 +80,40 @@ document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina carg
 
         divisor.appendChild(imagen);
 
+        var boton = document.createElement("input");
+        boton.setAttribute("type", "button");
+        boton.setAttribute("id", i);
+        boton.setAttribute("class", "btn btn-primary eli"+i.toString());
+        boton.setAttribute("value", "Eliminar");
+        boton.setAttribute("style", "margin-top: 5px; background-color: #f44336ad; border-color: #ffffff00;");
+        boton.setAttribute("onclick", "eliminar(" + boton.getAttribute("id") + ")");
+
+        divisor.appendChild(boton);
+
         var galeria = document.getElementById("insertar");
         galeria.appendChild(divisor);
 
     }
 });
+
+function eliminar(num){
+    var n = localStorage.getItem("Numero");
+
+    if((num+1) == n){
+        n--;
+        localStorage.setItem("Numero", n);
+        localStorage.removeItem(num);
+        location.reload();
+    }
+    else if((num+1) != n){
+        n--;
+        localStorage.setItem("Numero", n);
+        var i = num;
+        for(i; i<n; i++){
+            localStorage.setItem(i, localStorage.getItem(i+1));
+        }
+        localStorage.removeItem(n);
+        location.reload();
+
+    }
+};

@@ -37,6 +37,7 @@
 }
 
 .photo-gallery .item {
+  text-align: left;
   padding-bottom: 30px;
   flex: 2 2 35%;
   max-width: 33%;
