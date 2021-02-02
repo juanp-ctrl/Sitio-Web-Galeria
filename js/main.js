@@ -44,7 +44,7 @@ function loaded(){
 
         var imagen = document.createElement("img");
         imagen.setAttribute("src", recentImageDataUrl);
-        imagen.setAttribute("class", "img-fluid");
+        imagen.setAttribute("class", "imagen");
 
         divisor.appendChild(imagen);
 
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina carg
 
         var imagen = document.createElement("img");
         imagen.setAttribute("src", recentImageDataUrl);
-        imagen.setAttribute("class", "img-fluid");
+        imagen.setAttribute("class", "imagen");
 
         divisor.appendChild(imagen);
 
