@@ -35,7 +35,7 @@ function validarLogin(json){
     let usuario = JSON.parse(localStorage.getItem("usuario"));
 
     if(usuario.password == json.password){
-        location.href = "home.html";
+        location.href = "galeria.html";
     }
     else{
         alert("Usuario y/o Contraseña incorrecta");

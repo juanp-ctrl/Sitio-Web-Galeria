@@ -48,9 +48,15 @@ function loaded(){
 
         divisor.appendChild(imagen);
 
+        var divisi = document.createElement("div");
+        divisi.setAttribute("class", "centrado")
+        divisi.setAttribute("id", "centrado"+i);
+
+        divisor.appendChild(divisi);
+
         var boton = document.createElement("input");
         boton.setAttribute("type", "button");
-        boton.setAttribute("id", --i);
+        boton.setAttribute("id", i);
         boton.setAttribute("class", "btn btn-primary eli"+i.toString());
         boton.setAttribute("value", "Eliminar");
         boton.setAttribute("style", "margin-top: 5px; background-color: #f44336ad; border-color: #ffffff00;");
@@ -60,6 +66,8 @@ function loaded(){
 
         var galeria = document.getElementById("insertar");
         galeria.appendChild(divisor);
+
+        document.getElementById("centrado"+i).innerHTML='Imagen '+(i);
 
 };
 

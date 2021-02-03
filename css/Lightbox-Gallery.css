@@ -43,19 +43,98 @@
   max-width: 33%;
 }
 
-
-
 .imagen {
   max-width: 100%;
   height: 400px;
   width: 400px;
 }
 
-@media (max-width:850px) {
+.centrado{
+  background-color: rgb(31, 31, 31, 0.9);
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+}
+
+div.item:hover div.centrado{
+  width: 402px;
+  height: 400px;
+  opacity: 1;
+  position: absolute;
+  padding-top: 175px;
+  transform: translate(1%, -100%);
+  color: white;
+  font-family: Alata, sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media screen and (max-width:1350px) and (min-width:1000px) {
+  .imagen{
+    max-width: 100%;
+    height: 400px;
+    width: 400px;
+  }
+
+  div.item:hover div.centrado{
+    width: 352px;
+    height: 400px;
+    opacity: 1;
+    position: absolute;
+    padding-top: 175px;
+    transform: translate(0%, -100%);
+    color: white;
+    font-family: Alata, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+@media (max-width:980px) {
   .imagen{
     max-width: 100%;
     height: 200px;
     width: 200px;
   }
+
+  div.item:hover div.centrado{
+    width: 201px;
+    height: 200px;
+    opacity: 1;
+    position: absolute;
+    padding-top: 85px;
+    transform: translate(3%, -100%);
+    color: white;
+    font-family: Alata, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
 }
+
+@media (max-width:750px) {
+  .imagen{
+    max-width: 100%;
+    height: 200px;
+    width: 200px;
+  }
+
+  div.item:hover div.centrado{
+    width: 154px;
+    height: 200px;
+    opacity: 1;
+    position: absolute;
+    padding-top: 82px;
+    transform: translate(0%, -100%);
+    color: white;
+    font-family: Alata, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+  }
+}
+
+
+
+
+
+
 
