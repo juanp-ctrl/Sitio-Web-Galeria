@@ -80,6 +80,12 @@ document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina carg
 
         divisor.appendChild(imagen);
 
+        var divisi = document.createElement("div");
+        divisi.setAttribute("class", "centrado")
+        divisi.setAttribute("id", "centrado"+i);
+
+        divisor.appendChild(divisi);
+
         var boton = document.createElement("input");
         boton.setAttribute("type", "button");
         boton.setAttribute("id", i);
@@ -92,6 +98,8 @@ document.addEventListener("DOMContentLoaded", () => {    //Cuando la pagina carg
 
         var galeria = document.getElementById("insertar");
         galeria.appendChild(divisor);
+
+        document.getElementById("centrado"+i).innerHTML='Imagen '+(i+1);
 
     }
 });
