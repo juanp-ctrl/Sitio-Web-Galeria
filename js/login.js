@@ -20,7 +20,7 @@ window.onload = function(){    //onload garantiza que todos los elementos se hay
     });
 
     function procesarDatos(){
-        fetch("script.php", {method: "POST",  //fetch hace una peticion al servidor, con formdata usamos los campos del formulario
+        fetch("php/script.php", {method: "POST",  //fetch hace una peticion al servidor, con formdata usamos los campos del formulario
         body:new FormData(frm)
         }).then(function(response){
             return response.json();  //retornamos el json obtenido

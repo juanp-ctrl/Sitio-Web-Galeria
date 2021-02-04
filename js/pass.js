@@ -13,32 +13,33 @@ window.onload = ()=>{
             frm.classList.add("was-validated");  //añade el estilo de validacion 
         }
     });
-}
 
-function procesarDatos(){
-    let usuario = localStorage.getItem("usuario");  //obtenemos el item guardado en localstorage 
-    if(usuario){
-        fetch("script.php", {method: "POST", 
-        body:new FormData(frm)
-        }).then(function(response){
-            return response.json();  
-        }).then(function(json){
-            validarCorreo(json);
-        }).catch(function(err){
 
-        })
+    function procesarDatos(){
+        let usuario = localStorage.getItem("usuario");  //obtenemos el item guardado en localstorage 
+        if(usuario){
+            fetch("script.php", {method: "POST", 
+            body:new FormData(frm)
+            }).then(function(response){
+                return response.json();  
+            }).then(function(json){
+                validarCorreo(json);
+            }).catch(function(err){
+
+            })
+        }
     }
-}
 
-function validarCorreo(json){
+    function validarCorreo(json){
 
-    let usuario = JSON.parse(localStorage.getItem("usuario"));
+        let usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    if(usuario.usuario == json.usuario){
-        localStorage.setItem("usuario", JSON.stringify(json));
-        location.href = "index.html";
-    }
-    else{
-        alert("El correo ingresado no existe en el sistema");
+        if(usuario.usuario == json.usuario){
+            localStorage.setItem("usuario", JSON.stringify(json));
+            location.href = "index.html";
+        }
+        else{
+            alert("El correo ingresado no existe en el sistema");
+        }
     }
 }
